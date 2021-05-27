@@ -92,7 +92,6 @@ public class MainPanel extends JPanel implements ActionListener, KeyListener, Mo
 	}
 	
 	void updateWorldState() {
-		drawMenuState(null);
 		currentState = WORLD;
 		
 		// Updates what's happening to all the objects (makes them move and things happen to them)

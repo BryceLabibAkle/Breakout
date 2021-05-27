@@ -92,11 +92,18 @@ public class ObjectManager implements ActionListener{
 		int ballObjectX = (int) (racketObject.getX() + (racketObject.width/4));
 		int ballObjectY = (int) racketObject.getY() - ballObjectHeight;
 		
-		// Ball velocity
-		int ballObjectVelocityX = 8*(((ballObjectX - mouseX)/screenTools.getSizeFromPercentageOfScreenX(50))*100);
-		int ballObjectVelocityY;
+		// BallObject's mass
+		float ballObjectMass = (float) 1.075;
 		
-		ballObjects.add(new BallObject(ballObjectX, ballObjectY, ballObjectWidth, ballObjectHeight, ballObjectGravity, 1, ballObjectVelocityX, -7));
+		// Ball velocity X
+		int ballObjectDistanceFromRacketX = -35*(racketObject.getCenterOfWidth() - mouseX);
+		int ballObjectVelocityX = (int) ballObjectDistanceFromRacketX/screenTools.getSizeFromPercentageOfScreenX(50);
+		
+		// Ball velocity Y
+		int ballObjectDistanceFromRacketY = (int) (-35*((racketObject.getY() + racketObject.getHeight()) - mouseY));
+		int ballObjectVelocityY = (int) ballObjectDistanceFromRacketY/screenTools.getSizeFromPercentageOfScreenY(50);
+		
+		ballObjects.add(new BallObject(ballObjectX, ballObjectY, ballObjectWidth, ballObjectHeight, ballObjectGravity, ballObjectMass, ballObjectVelocityX, ballObjectVelocityY));
 	}
 	
 	void addRandomPowerup(int powerupX, int powerupY) {
@@ -209,12 +216,15 @@ public class ObjectManager implements ActionListener{
 			}
 			
 			// Powerup
-			for (int BoxObjectNum = 0; BoxObjectNum < boxObjects.size(); BoxObjectNum++) {
-				if (ballObjects.get(ballObjectNum1).collisionBox.intersects(boxObjects.get(BoxObjectNum).collisionBox)) {
-					boxObjects.get(BoxObjectNum).gotHit();
-					if (boxObjects.get(BoxObjectNum).hasPowerup) {
-						addRandomPowerup((int) boxObjects.get(BoxObjectNum).getX(), (int) boxObjects.get(BoxObjectNum).getY());
-					}
+			for (int boxObjectNum = 0; boxObjectNum < boxObjects.size(); boxObjectNum++) {
+				if (boxObjects.get(boxObjectNum).collisionBox.intersects(ballObjects.get(ballObjectNum1).collisionBox)) {
+					boxObjects.get(boxObjectNum).gotHit();
+					System.out.println("Hit: " + boxObjectNum
+									   + "\nX Value: "+ ballObjects.get(ballObjectNum1).getX()
+									   + "\nY Value: "+ ballObjects.get(ballObjectNum1).getY() + "\n");
+//					if (boxObjects.get(BoxObjectNum).hasPowerup) {
+//						addRandomPowerup((int) boxObjects.get(BoxObjectNum).getX(), (int) boxObjects.get(BoxObjectNum).getY());
+//					}
 				}
 			}
 			

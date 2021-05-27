@@ -24,8 +24,8 @@ public class PhysicsObject extends FatherOfObjects{
 	
 	void update() {
 		if (isActive == true) {
-			collisionBox.setBounds((int) x, (int) y, width, height);
 			updatePosition();
+			this.collisionBox.setBounds((int) x, (int) y, width, height);
 		}
 	 }
 	
@@ -70,11 +70,11 @@ public class PhysicsObject extends FatherOfObjects{
 			//velocityX = velocityX*(0.999-(gravity/1000));
 			
 			// Sets the maximum velocity
-			if (velocityX > 7.5) {
-				velocityX = 7.5;
+			if (Math.abs(velocityX) > 15) {
+				velocityX /= 1.05;
 			}
-			if (velocityY > 7.5) {
-				velocityY = 7.5;
+			if (Math.abs(velocityY) > 15) {
+				velocityY /= 1.05;
 			}
 			
 //			System.out.println("X: " + x + "\n"

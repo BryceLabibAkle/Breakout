@@ -22,7 +22,6 @@ public class BoxObjectOrganizer {
 	ArrayList<ArrayList<BoxObject>> blockObjects = new ArrayList<ArrayList<BoxObject>>();
 	
 	BoxObjectOrganizer(int rows, int columns) {
-		System.out.println(screenTools.getSizeFromPercentageOfScreenX(50));
 		this.rows = rows;
 		this.columns = columns;
 		
@@ -36,12 +35,10 @@ public class BoxObjectOrganizer {
 			blockObjects.add(new ArrayList<BoxObject>());
 			for (int currentColumn = 0; currentColumn < columns; currentColumn++) {
 				
-				// Settings for the blockObject
+				// Settings for the boxObject
 				int boxObjectX = stepX*currentRow;
 				int boxObjectY = stepY*currentColumn;
-				//System.out.println("boxObjectX: " + boxObjectX);
-				//System.out.println("boxObjectY: " + boxObjectY);
-				
+
 				blockObjects.get(currentRow).add(new BoxObject(boxObjectX, boxObjectY, stepX, stepY, rand.nextInt(9)+1, false));
 			}
 		}

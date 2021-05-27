@@ -33,11 +33,14 @@ public class ScreenTools {
 	}
 	
 	static int getSizeFromPercentageOfScreenX(float percentageSizeOfScreen) {
+		System.out.println((screenWidth*(percentageSizeOfScreen/100)));
 		return (int) (screenWidth*(percentageSizeOfScreen/100));
 	}
 	
 	static int getSizeFromPercentageOfScreenY(float percentageSizeOfScreen) {
-		return (int) (screenHeight*(percentageSizeOfScreen/100));
+		System.out.println((screenHeight*(percentageSizeOfScreen/100)));
+		return 540;
+//		return (int) (screenHeight*(percentageSizeOfScreen/100));
 	}
 	
 	static Dimension getDimensionFromPercentageOfScreen(float percentageSizeOfScreenX, float percentageSizeOfScreenY) {

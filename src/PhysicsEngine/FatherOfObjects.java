@@ -90,6 +90,12 @@ public class FatherOfObjects {
 	int getHeight() {
 		return this.height;
 	}
+	
+	int getCenterOfWidth() {
+		int l = (int) (this.getX() + (this.width/2));
+		System.out.println(l);
+		return l;
+	}
 	 
 	void setX(int x) {
 		this.x = x;
