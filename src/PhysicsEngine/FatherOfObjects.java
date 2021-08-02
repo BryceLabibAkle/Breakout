@@ -18,9 +18,7 @@ public class FatherOfObjects {
 	Image image;
 	String imageFileName;
 	Color color;
-	
-	// Screen Size
-	static ScreenTools screenTools = new ScreenTools(50);
+	static String text = "";
 	
 	FatherOfObjects(double x, double y, int width, int height) {
 		this.x = x;
@@ -30,7 +28,7 @@ public class FatherOfObjects {
 		this.isActive = true;
 		this.needImage = true;
 		
-		this.collisionBox = new Rectangle((int) (x*1.25), (int) (y*1.25), width, height);
+		this.collisionBox = new Rectangle((int) (x), (int) (y), width, height);
 		
 		System.out.println("made new object");
 	}
@@ -39,6 +37,7 @@ public class FatherOfObjects {
 		if (needImage) {
 			loadImage(imageFileName);
 			g.drawImage(image, (int) x, (int) y, width, height, null);
+			g.drawString(text, (int) this.x, (int) this.y);
 		}
 		else {
 	        g.setColor(color);
@@ -48,7 +47,7 @@ public class FatherOfObjects {
 	
 	void update() {
 		
-	 }
+	}
 	
 	void loadImage(String imageFile) {
 		try {
@@ -96,6 +95,10 @@ public class FatherOfObjects {
 		System.out.println(l);
 		return l;
 	}
+	
+	String getText() {
+		return this.text;
+	}
 	 
 	void setX(int x) {
 		this.x = x;
@@ -113,16 +116,11 @@ public class FatherOfObjects {
 		this.height = height;
 	}
 	
-	void setPercentageOfWindowWidth(int widthPercentageOfScreen) {
-		this.width = screenTools.getSizeFromPercentageOfScreenX(widthPercentageOfScreen);
-	}
-	
-	void setPercentageOfWindowHeight(int heightPercentageOfScreen) {
-		this.height = screenTools.getSizeFromPercentageOfScreenY(heightPercentageOfScreen);
-	}
-	
 	void setActive(boolean active) {
 		this.isActive = active;
 	}
-	 
+	
+	void setText(String text) {
+		this.text = text;
+	}
 }

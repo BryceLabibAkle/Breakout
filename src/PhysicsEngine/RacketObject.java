@@ -1,6 +1,7 @@
 package PhysicsEngine;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 
 public class RacketObject extends FatherOfObjects{
 	double velocityX;
@@ -23,6 +24,8 @@ public class RacketObject extends FatherOfObjects{
 		x += velocityX;
 		
 		velocityX *= 0.85;
+		
+		this.collisionBox = (this.collisionBox = new Rectangle((int) (x), (int) (y), width, height));
 	}
 	
 	void movingRight() {

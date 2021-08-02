@@ -32,12 +32,12 @@ public class PhysicsObject extends FatherOfObjects{
 	void updatePosition() {
 		if (hasPhysics) {
 			// Checks if the Object has hit the corners of the wall
-			// Virtical (Walls)
-			if ((getLeftSideLocation() < 0) || (getRightSideLocation() > screenTools.windowSize.width)) {
+			// Vertical (Walls)
+			if ((getLeftSideLocation() < 0) || (getRightSideLocation() > ScreenManager.windowSize.width)) {
 				velocityX = -1*(velocityX / mass);
 			}
 			// Horizontal (Ceiling and Floor)
-			if ((getTopSideLocation() < 0) || (getBottomSideLocation() > screenTools.windowSize.height)) {
+			if ((getTopSideLocation() < 0) || (getBottomSideLocation() > ScreenManager.windowSize.height)) {
 				velocityY = -1*(velocityY / mass);
 			}
 			
@@ -47,11 +47,11 @@ public class PhysicsObject extends FatherOfObjects{
 				hitTopOfScreen();
 			}
 			// If ballObject left the right side of the screen
-			else if (getRightSideLocation() > screenTools.windowSize.width) {
+			else if (getRightSideLocation() > ScreenManager.windowSize.width) {
 				hitRightOfScreen();
 			}
 			// If ballObject left the bottom side of the screen
-			else if (getBottomSideLocation() > screenTools.windowSize.height) {
+			else if (getBottomSideLocation() > ScreenManager.windowSize.height) {
 				hitBottomOfScreen();
 			}
 			// If ballObject left the left side of the screen
@@ -89,11 +89,11 @@ public class PhysicsObject extends FatherOfObjects{
 	}
 	
 	void hitRightOfScreen() {
-		x = (screenTools.windowSize.width - getWidth());
+		x = (ScreenManager.windowSize.width - getWidth());
 	}
 	
 	void hitBottomOfScreen() {
-		y = (screenTools.windowSize.height - getHeight());
+		y = (ScreenManager.windowSize.height - getHeight());
 	}
 	
 	void hitLeftOfScreen() {

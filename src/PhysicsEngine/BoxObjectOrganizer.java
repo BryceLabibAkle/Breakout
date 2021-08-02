@@ -10,7 +10,7 @@ public class BoxObjectOrganizer {
 	
 	// Other
 	Random rand = new Random();
-	ScreenTools screenTools = new ScreenTools(50);
+	boolean hasPowerup;
 	
 	// Steps for Blocks
 	int stepX;
@@ -21,14 +21,17 @@ public class BoxObjectOrganizer {
 	 */
 	ArrayList<ArrayList<BoxObject>> blockObjects = new ArrayList<ArrayList<BoxObject>>();
 	
-	BoxObjectOrganizer(int rows, int columns) {
+	BoxObjectOrganizer(int rows, int columns, double chanceForPowerup) {
 		this.rows = rows;
 		this.columns = columns;
 		
 		// Setting step amount
-		// Sould be (50/num) but for some reason 40 works better
-		int stepX = screenTools.getSizeFromPercentageOfScreenX(40/columns);
-		int stepY = screenTools.getSizeFromPercentageOfScreenY(40/rows);
+		// Sould be (50/num) but for some reason 40 works better (now 80 bruv)
+		int stepX = ScreenManager.getSizeFromPercentageOfWindowX((float) (100.0/columns));
+		int stepY = ScreenManager.getSizeFromPercentageOfWindowY((float) (80.0/rows));
+		
+		System.out.println("stepX: " + stepX);
+		System.out.println("stepY: " + stepY);
 		
 		for (int currentRow = 0; currentRow < rows; currentRow++) {
 			System.out.println("\nRow: " + currentRow);
@@ -38,8 +41,10 @@ public class BoxObjectOrganizer {
 				// Settings for the boxObject
 				int boxObjectX = stepX*currentRow;
 				int boxObjectY = stepY*currentColumn;
+				
+				hasPowerup = ((chanceForPowerup) > rand.nextInt(100));
 
-				blockObjects.get(currentRow).add(new BoxObject(boxObjectX, boxObjectY, stepX, stepY, rand.nextInt(9)+1, false));
+				blockObjects.get(currentRow).add(new BoxObject(boxObjectX, boxObjectY, stepX, stepY, rand.nextInt(9)+1, hasPowerup));
 			}
 		}
 		

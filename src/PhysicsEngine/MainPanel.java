@@ -15,19 +15,21 @@ import javax.swing.Timer;
 public class MainPanel extends JPanel implements ActionListener, KeyListener, MouseListener{
 	
 	// Window States
-	final int MENU = 0;
-	final int WORLD = 1;
-	int currentState = WORLD;
+	final static int MENU = 0;
+	final static int WORLD = 1;
+	final static int GAME_OVER = 2;
+	static int currentState = WORLD;
 	
 	// Colors
 	Color blackColor = new Color(0, 0, 0);
 	
 	// FrameRate
-	static int fps = 60;
+	static int fps = 65;
 	Timer frameDraw;
 	boolean optimisedFrameRatesActive;
 	static float secondsPassed = 0;
 	static float gravityPowerupDurationSeconds;
+	static float gameDuration = 65; 
 	
 	// Window Text
 	
@@ -37,7 +39,6 @@ public class MainPanel extends JPanel implements ActionListener, KeyListener, Mo
 	
 	// Other
 	ObjectManager objectManager = new ObjectManager();
-	static ScreenTools screenTools = new ScreenTools(50);
 	
 	public MainPanel() {
 		setFps(fps);
@@ -54,7 +55,9 @@ public class MainPanel extends JPanel implements ActionListener, KeyListener, Mo
 		case WORLD:
 			drawWorldState(g);
 			break;
-
+		case GAME_OVER:
+			drawGameOverState(g);
+			break;
 		default:
 			System.out.println("Unknown state: " + currentState);
 			break;
@@ -67,7 +70,7 @@ public class MainPanel extends JPanel implements ActionListener, KeyListener, Mo
 	
 	void drawWorldState(Graphics g) {
 		g.setColor(blackColor);
-		g.fillRect(0, 0, screenTools.windowSize.width, screenTools.windowSize.height);
+		g.fillRect(0, 0, ScreenManager.windowSize.width, ScreenManager.windowSize.height);
 		
 		objectManager.drawObjects(g);
 		
@@ -86,6 +89,17 @@ public class MainPanel extends JPanel implements ActionListener, KeyListener, Mo
 		}
 	}
 	
+	
+	void drawGameOverState(Graphics g) {
+		g.setColor(blackColor);
+		g.fillRect(0, 0, ScreenManager.windowSize.width, ScreenManager.windowSize.height);
+		
+		ObjectManager.addEndGameText();
+		ObjectManager.addRacketObject();
+		
+		objectManager.drawObjects(g);
+	}
+	
 	void updateMenuState() {
 		drawMenuState(null);
 		currentState = MENU;
@@ -99,8 +113,12 @@ public class MainPanel extends JPanel implements ActionListener, KeyListener, Mo
 		objectManager.updateObjects();
 	}
 	
+	static void updateGameOverState() {
+		currentState = GAME_OVER;
+	}
+	
 	void setFps(int fps) {
-		this.fps = fps;
+		MainPanel.fps = fps;
 		frameDraw = new Timer(1000/fps, this);
 		frameDraw.start();
 	}
